@@ -1,5 +1,5 @@
 import 'package:crud_with_firebase/firebase_options.dart';
-import 'package:crud_with_firebase/ui/login.dart';
+import 'package:crud_with_firebase/ui/mainpage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(),
-      home: const LoginPage(),
+      home: const MainPage(),
     );
   }
 }
