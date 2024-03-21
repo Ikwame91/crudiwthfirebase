@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "444805055193",
+    "project_id": "crudoperation-dcf9e",
+    "storage_bucket": "crudoperation-dcf9e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:444805055193:android:bcd2a83b9323eb3e0eb4c8",
+        "android_client_info": {
+          "package_name": "com.kwame.crud_with_firebase"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzxBUlvxC1i9GdS9d-PkX0eXE6E922-eM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
