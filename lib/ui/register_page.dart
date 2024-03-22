@@ -3,21 +3,51 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class LoginPage extends StatefulWidget {
-  final VoidCallback login;
-  const LoginPage({super.key, required this.login});
+class RegisterPage extends StatefulWidget {
+  final VoidCallback register;
+  const RegisterPage({super.key, required this.register});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
+  final TextEditingController confirmPassswdcontroller =
+      TextEditingController();
 
-  Future signIn() async {
+  @override
+  void dispose() {
+    emailController.dispose();
+    confirmPassswdcontroller.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  Future signUp() async {
+    if (!passwordConfirmed()) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Error'),
+            content: const Text('Passwords do not match!'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+      return; // Prevent signup process
+    }
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
       );
@@ -28,11 +58,13 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  @override
-  void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
-    super.dispose();
+  bool passwordConfirmed() {
+    if (passwordController.text.trim() ==
+        confirmPassswdcontroller.text.trim()) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   @override
@@ -46,7 +78,7 @@ class _LoginPageState extends State<LoginPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Icon(
-                  Icons.android,
+                  Icons.anchor,
                   size: 135,
                 ),
                 //Hello Again
@@ -54,8 +86,8 @@ class _LoginPageState extends State<LoginPage> {
                   height: 30,
                 ),
                 Text(
-                  "Hello Again",
-                  style: GoogleFonts.sail(
+                  "Hello There",
+                  style: GoogleFonts.sairaStencilOne(
                     fontWeight: FontWeight.bold,
                     fontSize: 30,
                   ),
@@ -64,7 +96,7 @@ class _LoginPageState extends State<LoginPage> {
                   height: 15,
                 ),
                 Text(
-                  "Welcome Back You've been missed",
+                  "Register Below With Your Details",
                   style: GoogleFonts.bebasNeue(
                     fontWeight: FontWeight.bold,
                     fontSize: 30,
@@ -113,9 +145,29 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: Colors.grey[200],
+                        border: Border.all(color: Colors.white),
+                        borderRadius: BorderRadius.circular(12)),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 25),
+                      child: TextField(
+                        controller: confirmPassswdcontroller,
+                        obscureText: true,
+                        decoration: const InputDecoration(
+                          hintText: "Confirm Password",
+                          border: InputBorder.none,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: GestureDetector(
-                    onTap: signIn,
+                    onTap: signUp,
                     child: Container(
                       padding: const EdgeInsets.all(20),
                       decoration: BoxDecoration(
@@ -123,7 +175,7 @@ class _LoginPageState extends State<LoginPage> {
                           borderRadius: BorderRadius.circular(12)),
                       child: Center(
                         child: Text(
-                          'Sign In',
+                          'Register',
                           style: GoogleFonts.lato(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
@@ -141,18 +193,18 @@ class _LoginPageState extends State<LoginPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      'Not a Memeber??',
+                    const Text(
+                      ' Already a Memeber??',
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     GestureDetector(
-                      onTap: widget.login,
-                      child: Text(
-                        'Register Now',
+                      onTap: widget.register,
+                      child: const Text(
+                        'Sign In',
                         style: TextStyle(
                             color: Colors.orange,
                             fontWeight: FontWeight.bold,

@@ -13,11 +13,20 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Text("SIGNED IN"),
-          Text("Welcome ${user.email}"),
-        ],
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("SIGNED IN"),
+            Text("Welcome ${user.email}"),
+            MaterialButton(
+                onPressed: () {
+                  FirebaseAuth.instance.signOut();
+                },
+                color: Colors.orange,
+                child: const Text("Sign Out"))
+          ],
+        ),
       ),
     );
   }
