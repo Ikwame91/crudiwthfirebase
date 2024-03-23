@@ -1,5 +1,6 @@
 import 'package:crud_with_firebase/ui/homepage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -52,9 +53,13 @@ class _RegisterPageState extends State<RegisterPage> {
         password: passwordController.text.trim(),
       );
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => const HomePage()));
+          // ignore: use_build_context_synchronously
+          context,
+          MaterialPageRoute(builder: (context) => const HomePage()));
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 

@@ -21,7 +21,14 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   Future passwordReset() async {
     try {
       await FirebaseAuth.instance
-          .sendPasswordResetEmail(email: emailController.text);
+          .sendPasswordResetEmail(email: emailController.text.trim());
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              content: Text("Password Rest Link sent check Email"),
+            );
+          });
     } on FirebaseAuthException catch (e) {
       print(e);
       showDialog(
@@ -80,8 +87,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
             height: 20,
           ),
           MaterialButton(
-              clipBehavior: Clip.antiAliasWithSaveLayer,
-              onPressed: PasswordReset(),
+              onPressed: passwordReset,
               color: Colors.orange,
               child: const Text("Reset Password"))
         ],
