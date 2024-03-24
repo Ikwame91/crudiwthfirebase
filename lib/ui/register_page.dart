@@ -15,8 +15,10 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
-  final TextEditingController confirmPassswdcontroller =
-      TextEditingController();
+  final confirmPassswdcontroller = TextEditingController();
+  final firstnameController = TextEditingController();
+  final lastnameController = TextEditingController();
+  final ageController = TextEditingController();
 
   @override
   void dispose() {
