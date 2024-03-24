@@ -1,4 +1,6 @@
 import 'package:crud_with_firebase/ui/homepage.dart';
+import 'package:crud_with_firebase/widgets/custom_container.dart';
+import 'package:crud_with_firebase/widgets/textfield.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +24,9 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   void dispose() {
+    firstnameController.dispose();
+    lastnameController.dispose();
+    ageController.dispose();
     emailController.dispose();
     confirmPassswdcontroller.dispose();
     passwordController.dispose();
@@ -112,88 +117,42 @@ class _RegisterPageState extends State<RegisterPage> {
                 const SizedBox(
                   height: 30,
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: Colors.grey[200],
-                        border: Border.all(color: Colors.white),
-                        borderRadius: BorderRadius.circular(12)),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 25),
-                      child: TextField(
-                        controller: emailController,
-                        decoration: const InputDecoration(
-                          hintText: "Email",
-                          border: InputBorder.none,
-                        ),
-                      ),
-                    ),
-                  ),
+                MyTextField(
+                  controller: firstnameController,
+                  hintText: "First Name",
+                  obscureText: false,
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: Colors.grey[200],
-                        border: Border.all(color: Colors.white),
-                        borderRadius: BorderRadius.circular(12)),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 25),
-                      child: TextField(
-                        controller: passwordController,
-                        obscureText: true,
-                        decoration: const InputDecoration(
-                          hintText: "Password",
-                          border: InputBorder.none,
-                        ),
-                      ),
-                    ),
-                  ),
+                MyTextField(
+                  controller: lastnameController,
+                  hintText: "Last Name",
+                  obscureText: false,
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: Colors.grey[200],
-                        border: Border.all(color: Colors.white),
-                        borderRadius: BorderRadius.circular(12)),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 25),
-                      child: TextField(
-                        controller: confirmPassswdcontroller,
-                        obscureText: true,
-                        decoration: const InputDecoration(
-                          hintText: "Confirm Password",
-                          border: InputBorder.none,
-                        ),
-                      ),
-                    ),
-                  ),
+                MyTextField(
+                  controller: ageController,
+                  hintText: "Age",
+                  obscureText: false,
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: GestureDetector(
-                    onTap: signUp,
-                    child: Container(
-                      padding: const EdgeInsets.all(20),
-                      decoration: BoxDecoration(
-                          color: Colors.orange,
-                          borderRadius: BorderRadius.circular(12)),
-                      child: Center(
-                        child: Text(
-                          'Register',
-                          style: GoogleFonts.lato(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            fontStyle: FontStyle.italic,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+
+                MyTextField(
+                  controller: emailController,
+                  hintText: "Email",
+                  obscureText: false,
                 ),
+                MyTextField(
+                  controller: passwordController,
+                  hintText: "Password",
+                  obscureText: true,
+                ),
+                MyTextField(
+                  controller: confirmPassswdcontroller,
+                  hintText: "Confirm Password",
+                  obscureText: true,
+                ),
+                CustomContainer(
+                  onTap: signUp,
+                  text: "Register",
+                ),
+
                 const SizedBox(
                   height: 15,
                 ),
