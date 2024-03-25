@@ -15,7 +15,21 @@ class MyTextField extends StatelessWidget {
         decoration: BoxDecoration(
             color: Colors.grey[200],
             border: Border.all(color: Colors.white),
-            borderRadius: BorderRadius.circular(12)),
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.shade800,
+                offset: const Offset(4, 4),
+                blurRadius: 15,
+                spreadRadius: -3,
+              ),
+              const BoxShadow(
+                color: Colors.white,
+                offset: Offset(-4, -4),
+                blurRadius: 15,
+                spreadRadius: 3,
+              ),
+            ]),
         child: Padding(
           padding: const EdgeInsets.only(left: 25),
           child: TextField(

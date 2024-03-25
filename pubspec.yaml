@@ -41,6 +41,7 @@ dependencies:
   path_provider: ^2.1.2
   ant_design_flutter: ^0.0.1+5
   cloud_firestore: ^4.15.9
+  email_validator: ^2.1.17
 
 dev_dependencies:
   flutter_test:

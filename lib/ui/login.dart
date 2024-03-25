@@ -2,6 +2,9 @@
 
 import 'package:crud_with_firebase/ui/forgot_password.dart';
 import 'package:crud_with_firebase/ui/homepage.dart';
+import 'package:crud_with_firebase/widgets/custom_container.dart';
+import 'package:crud_with_firebase/widgets/textfield.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +23,12 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController emailController = TextEditingController();
 
   Future signIn() async {
+    if (!EmailValidator.validate(emailController.text.trim())) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Please enter a valid email address'),
+        backgroundColor: Colors.orange,
+      ));
+    }
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailController.text.trim(),
@@ -32,18 +41,18 @@ class _LoginPageState extends State<LoginPage> {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text(
-                'The password you entered is incorrect. Please double-check and try again.'),
+                'The Email and password you entered is incorrect. Try Registering if you dont have an account.'),
             backgroundColor: Colors.orangeAccent,
           ),
         );
       } else {
         if (kDebugMode) {
-          print(e);
+          print(e.toString());
         }
       }
     } catch (e) {
       if (kDebugMode) {
-        print(e);
+        print(e.toString());
       }
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -100,44 +109,15 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(
                   height: 30,
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: Colors.grey[200],
-                        border: Border.all(color: Colors.white),
-                        borderRadius: BorderRadius.circular(12)),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 25),
-                      child: TextField(
-                        controller: emailController,
-                        decoration: const InputDecoration(
-                          hintText: "Email",
-                          border: InputBorder.none,
-                        ),
-                      ),
-                    ),
-                  ),
+                MyTextField(
+                  controller: emailController,
+                  hintText: "Email",
+                  obscureText: false,
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: Colors.grey[200],
-                        border: Border.all(color: Colors.white),
-                        borderRadius: BorderRadius.circular(12)),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 25),
-                      child: TextField(
-                        controller: passwordController,
-                        obscureText: true,
-                        decoration: const InputDecoration(
-                          hintText: "Password",
-                          border: InputBorder.none,
-                        ),
-                      ),
-                    ),
-                  ),
+                MyTextField(
+                  controller: passwordController,
+                  hintText: "Password",
+                  obscureText: true,
                 ),
 
                 Padding(
@@ -163,28 +143,9 @@ class _LoginPageState extends State<LoginPage> {
                     ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: GestureDetector(
-                    onTap: signIn,
-                    child: Container(
-                      padding: const EdgeInsets.all(20),
-                      decoration: BoxDecoration(
-                          color: Colors.orange,
-                          borderRadius: BorderRadius.circular(12)),
-                      child: Center(
-                        child: Text(
-                          'Sign In',
-                          style: GoogleFonts.lato(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            fontStyle: FontStyle.italic,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                CustomContainer(
+                  onTap: signIn,
+                  text: 'Sign In',
                 ),
                 const SizedBox(
                   height: 15,
