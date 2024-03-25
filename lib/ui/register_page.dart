@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crud_with_firebase/ui/homepage.dart';
 import 'package:crud_with_firebase/widgets/custom_container.dart';
 import 'package:crud_with_firebase/widgets/textfield.dart';
@@ -52,7 +55,8 @@ class _RegisterPageState extends State<RegisterPage> {
           );
         },
       );
-      return; // Prevent signup process
+      return;
+      // Prevent signup process
     }
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -63,6 +67,29 @@ class _RegisterPageState extends State<RegisterPage> {
           // ignore: use_build_context_synchronously
           context,
           MaterialPageRoute(builder: (context) => const HomePage()));
+
+      addUserDetails(
+        firstnameController.text.trim(),
+        lastnameController.text.trim(),
+        int.parse(ageController.text.trim()),
+        emailController.text.trim(),
+      );
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+  }
+
+  Future addUserDetails(
+      String firstname, String lastname, int age, String email) async {
+    try {
+      await FirebaseFirestore.instance.collection('users').add({
+        'firstname': firstname,
+        'lastname': lastname,
+        'age': age,
+        'email': email,
+      });
     } catch (e) {
       if (kDebugMode) {
         print(e);
