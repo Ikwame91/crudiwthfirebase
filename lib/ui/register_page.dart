@@ -63,17 +63,16 @@ class _RegisterPageState extends State<RegisterPage> {
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
       );
-      Navigator.pushReplacement(
-          // ignore: use_build_context_synchronously
-          context,
-          MaterialPageRoute(builder: (context) => const HomePage()));
-
       addUserDetails(
         firstnameController.text.trim(),
         lastnameController.text.trim(),
         int.parse(ageController.text.trim()),
         emailController.text.trim(),
       );
+      Navigator.pushReplacement(
+          // ignore: use_build_context_synchronously
+          context,
+          MaterialPageRoute(builder: (context) => const HomePage()));
     } catch (e) {
       if (kDebugMode) {
         print(e);

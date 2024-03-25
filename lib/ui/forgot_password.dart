@@ -1,3 +1,4 @@
+import 'package:crud_with_firebase/widgets/textfield.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -64,24 +65,10 @@ class _ForgotPasswordState extends State<ForgotPassword> {
           const SizedBox(
             height: 20,
           ),
-          Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Container(
-              decoration: BoxDecoration(
-                  color: Colors.grey[200],
-                  border: Border.all(color: Colors.white),
-                  borderRadius: BorderRadius.circular(12)),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 25),
-                child: TextField(
-                  controller: emailController,
-                  decoration: const InputDecoration(
-                    hintText: "Email",
-                    border: InputBorder.none,
-                  ),
-                ),
-              ),
-            ),
+          MyTextField(
+            controller: emailController,
+            hintText: "Email",
+            obscureText: false,
           ),
           const SizedBox(
             height: 20,
