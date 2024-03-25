@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:crud_with_firebase/ui/forgot_password.dart';
 import 'package:crud_with_firebase/ui/homepage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -24,13 +26,32 @@ class _LoginPageState extends State<LoginPage> {
         password: passwordController.text.trim(),
       );
       Navigator.pushReplacement(
-          // ignore: use_build_context_synchronously
-          context,
-          MaterialPageRoute(builder: (context) => const HomePage()));
+          context, MaterialPageRoute(builder: (context) => const HomePage()));
+    } on FirebaseException catch (e) {
+      if (e.code == 'user-not-found' || e.code == 'invalid-credential') {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text(
+                'The password you entered is incorrect. Please double-check and try again.'),
+            backgroundColor: Colors.orangeAccent,
+          ),
+        );
+      } else {
+        if (kDebugMode) {
+          print(e);
+        }
+      }
     } catch (e) {
       if (kDebugMode) {
         print(e);
       }
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content:
+              Text('An unexpected error occurred. Please try again later.'),
+          backgroundColor: Colors.red,
+        ),
+      );
     }
   }
 
