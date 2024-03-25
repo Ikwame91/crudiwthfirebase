@@ -31,7 +31,10 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.orange,
-          title: Text("Welcome ${user.email}"),
+          title: Text(
+            "Welcome ${user.email}",
+            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          ),
           centerTitle: true,
           actions: [
             IconButton(
